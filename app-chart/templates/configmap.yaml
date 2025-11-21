@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "preview-app.fullname" . }}-html
+  labels:
+    {{- include "preview-app.labels" . | nindent 4 }}
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Preview Environment</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 50px; background: #f0f0f0; }
+            .container { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+            h1 { color: #4CAF50; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>{{ .Values.content.message }}</h1>
+            <p><strong>Environment:</strong> {{ .Release.Name }}</p>
+            <p><strong>Namespace:</strong> {{ .Release.Namespace }}</p>
+        </div>
+    </body>
+    </html>
