@@ -1,0 +1,8 @@
+content:
+  message: "Feature-test aagaya!"
+
+ingress:
+  enabled: true
+  className: nginx
+  host: feature-test.192.168.49.2.sslip.io
+  tlsSecretName: feature-test-1-tls
