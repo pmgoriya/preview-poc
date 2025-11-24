@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: preview-envs
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/pmgoriya/preview-poc.git
+        revision: main
+        directories:
+          - path: environments/*
+  template:
+    metadata:
+      name: 'preview-{{ .path.basename }}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/pmgoriya/preview-poc.git
+        targetRevision: main
+        path: app-chart
+        helm:
+          releaseName: '{{ .path.basename }}'
+          valueFiles:
+            - ../environments/{{ .path.basename }}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'preview-{{ .path.basename }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
