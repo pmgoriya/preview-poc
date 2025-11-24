@@ -4,5 +4,5 @@ content:
 ingress:
   enabled: true
   className: nginx
-  host: app-pr-1.192.168.49.2.sslip.io
+  host: pr1.192.168.49.2.sslip.io
   tlsSecretName: pr-1-tls
