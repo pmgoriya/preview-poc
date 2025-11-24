@@ -1,0 +1,8 @@
+content:
+  message: "Namaskar from Pr-2"
+
+ingress:
+  enabled: true
+  className: nginx
+  host: pr2.192.168.49.2.sslip.io
+  tlsSecretName: pr-2-tls
